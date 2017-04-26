@@ -109,6 +109,7 @@ rc4_encrypt (char *key, char *data, char *result)
       memcpy (pointer, temp_current, 2);
       pointer += 2;
     }
+  *pointer = '\0';
   pointer = NULL;
 }
 
@@ -162,14 +163,14 @@ main (int argc, char **args)
   if (argc != 3)
     usage ();
 
-  key = malloc (strlen (args[1]));
-  memcpy (key, args[1], strlen (args[1]));
+  key = malloc (strlen (args[1]) + 1);
+  memcpy (key, args[1], strlen (args[1]) + 1);
 
-  data = malloc (strlen (args[2]));
-  memcpy (data, args[2], strlen (args[2]));
+  data = malloc (strlen (args[2]) + 1);
+  memcpy (data, args[2], strlen (args[2]) + 1);
 
-  result = malloc (strlen (args[2]) * 2);
-  decrypted_data = malloc (strlen (args[2]));
+  result = malloc (strlen (args[2]) * 2 + 1);
+  decrypted_data = malloc (strlen (args[2]) + 1);
 
   rc4_encrypt (key, data, result);
 
